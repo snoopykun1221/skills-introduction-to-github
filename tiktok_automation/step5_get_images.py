@@ -36,8 +36,42 @@ def download_product_image(product: Product, output_dir: str, index: int) -> str
         return output_path
 
     except Exception as e:
-        logger.error(f"画像ダウンロード失敗 ({product.name}): {e}")
-        return None
+        logger.warning(f"画像ダウンロード失敗 ({product.name}): {e} → プレースホルダー生成")
+        return _create_placeholder_image(product.name, output_dir, index)
+
+
+def _create_placeholder_image(product_name: str, output_dir: str, index: int) -> str:
+    """Pillowで商品名入りプレースホルダー画像を生成"""
+    from PIL import Image, ImageDraw
+    import config
+
+    colors = ["#1a1a2e", "#16213e", "#0f3460"]
+    bg_color = colors[index % len(colors)]
+
+    img = Image.new("RGB", (config.VIDEO_WIDTH, config.VIDEO_HEIGHT), bg_color)
+    draw = ImageDraw.Draw(img)
+
+    # グラデーション風の枠
+    for i in range(10):
+        draw.rectangle(
+            [i * 20, i * 20, config.VIDEO_WIDTH - i * 20, config.VIDEO_HEIGHT - i * 20],
+            outline="#e94560",
+            width=2,
+        )
+
+    # 商品名テキスト（中央）
+    short_name = product_name[:20]
+    draw.text(
+        (config.VIDEO_WIDTH // 2, config.VIDEO_HEIGHT // 2),
+        short_name,
+        fill="white",
+        anchor="mm",
+    )
+
+    output_path = os.path.join(output_dir, f"product_{index:03d}_placeholder.jpg")
+    img.save(output_path, "JPEG", quality=90)
+    logger.info(f"プレースホルダー画像生成: {output_path}")
+    return output_path
 
 
 def download_all_images(products: list[Product], output_dir: str) -> list[str | None]:

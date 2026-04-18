@@ -126,10 +126,49 @@ def fetch_rakuten_ranking(genre_id: str = "0") -> list[Product]:
     return products
 
 
-def fetch_all_products() -> list[Product]:
-    """全ソースから商品を取得してまとめる"""
+DEMO_PRODUCTS = [
+    Product(
+        name="電動歯ブラシ 音波式",
+        price="¥3,980",
+        rating=4.6,
+        review_count=8420,
+        image_url="https://images-na.ssl-images-amazon.com/images/I/51UiRVpDvLL._AC_SL1000_.jpg",
+        product_url="https://www.amazon.co.jp/",
+        category="美容・ヘルスケア",
+        source="demo",
+    ),
+    Product(
+        name="折りたたみ収納ボックス 6個セット",
+        price="¥2,499",
+        rating=4.5,
+        review_count=5130,
+        image_url="https://images-na.ssl-images-amazon.com/images/I/71d4BEnFCzL._AC_SL1500_.jpg",
+        product_url="https://www.amazon.co.jp/",
+        category="収納・インテリア",
+        source="demo",
+    ),
+    Product(
+        name="ポータブル充電器 20000mAh",
+        price="¥4,280",
+        rating=4.7,
+        review_count=12300,
+        image_url="https://images-na.ssl-images-amazon.com/images/I/61LJhxHDELL._AC_SL1000_.jpg",
+        product_url="https://www.amazon.co.jp/",
+        category="スマホ・ガジェット",
+        source="demo",
+    ),
+]
+
+
+def fetch_all_products(use_demo_fallback: bool = True) -> list[Product]:
+    """全ソースから商品を取得してまとめる。失敗時はデモデータを使用"""
     products = []
     products.extend(fetch_amazon_bestsellers())
     products.extend(fetch_rakuten_ranking())
+
+    if not products and use_demo_fallback:
+        logger.warning("商品取得失敗。デモデータを使用します")
+        return DEMO_PRODUCTS
+
     logger.info(f"合計: {len(products)}件取得")
     return products
