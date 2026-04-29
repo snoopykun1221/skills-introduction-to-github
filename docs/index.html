@@ -5,10 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>ニッポン マップ ガイド | TikTok・Instagramで話題の日本各地まとめ</title>
 <meta name="description" content="TikTok・Instagramで話題の日本各地のおすすめ料理屋・観光地・神社・体験を都道府県別に厳選してまとめたガイドサイト。">
+<meta name="theme-color" content="#e63946">
+
+<!-- OGP / Twitter Card -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ニッポン マップ ガイド | TikTok・Instagramで話題の日本各地まとめ">
+<meta property="og:description" content="47都道府県の話題のグルメ・観光地・神社・体験を地図から探せるガイド。">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="ニッポン マップ ガイド">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+
+<!--
+  ============== 収益化スクリプト (公開前に下記を差し替え) ==============
+  - GA4_MEASUREMENT_ID  : Google Analytics 4 の測定 ID (例: G-XXXXXXXXXX)
+  - ADSENSE_CLIENT      : AdSense の ca-pub-XXXXXXXXXXXXXXXX
+  - 各種アフィリエイトIDは js/data.js の冒頭 AFF_IDS を編集
+  詳しくは docs/MONETIZATION.md を参照
+-->
+<!-- Google Analytics 4 (差し替え後にコメントアウトを外す)
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA4_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA4_MEASUREMENT_ID');
+</script>
+-->
+<!-- Google AdSense (差し替え後にコメントアウトを外す)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ADSENSE_CLIENT" crossorigin="anonymous"></script>
+-->
 </head>
 <body>
 <header class="site-header">
@@ -59,6 +89,21 @@
     </div>
   </section>
 
+  <!-- AdSense: トップとモーダルの間に1枠 -->
+  <aside class="ad-slot ad-slot-top" aria-label="広告">
+    <div class="ad-label">Sponsored</div>
+    <!-- AdSense レスポンシブ広告ユニット (公開時にコメントアウト解除)
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ADSENSE_CLIENT"
+         data-ad-slot="YOUR_SLOT_ID_TOP"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
+    <div class="ad-placeholder">広告枠 (AdSense / Mediavine 設置)</div>
+  </aside>
+
   <section id="regions" class="region-list">
     <h3>地方から一覧で探す</h3>
     <div class="region-cards" id="regionCards"></div>
@@ -101,6 +146,10 @@
           <button class="cat-tab" data-cat="experience">🎎 体験</button>
         </nav>
         <div class="cat-list" id="catList"></div>
+        <aside class="ad-slot ad-slot-modal" aria-label="広告">
+          <div class="ad-label">Sponsored</div>
+          <div class="ad-placeholder">広告枠 (詳細ページ内)</div>
+        </aside>
       </section>
     </div>
   </article>
