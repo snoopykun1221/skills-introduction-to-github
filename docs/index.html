@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ニッポン マップ ガイド | TikTok・Instagramで話題の日本各地まとめ</title>
+<meta name="description" content="TikTok・Instagramで話題の日本各地のおすすめ料理屋・観光地・神社・体験を都道府県別に厳選してまとめたガイドサイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">
+    <span class="brand-mark">日本</span>
+    <div class="brand-text">
+      <h1>ニッポン マップ ガイド</h1>
+      <p>TikTok・Instagram で話題の日本各地まとめ</p>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <a href="#map">マップ</a>
+    <a href="#regions">地方から探す</a>
+    <a href="#about">サイトについて</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h2>都道府県をタップして<br>“バズった” あの場所を探す。</h2>
+    <p class="lead">SNSで見つけた絶品グルメ・絶景スポット・歴史ある神社・没入体験を、47都道府県ごとに厳選。気になる県をタップしてください。</p>
+    <div class="hero-stats">
+      <div><strong id="stat-places">—</strong><span>掲載スポット</span></div>
+      <div><strong>47</strong><span>都道府県</span></div>
+      <div><strong>4</strong><span>カテゴリ</span></div>
+    </div>
+  </section>
+
+  <section id="map" class="map-section">
+    <div class="map-toolbar">
+      <h3>日本地図から選ぶ</h3>
+      <div class="region-filters" id="regionFilters">
+        <button class="region-chip active" data-region="all">全国</button>
+        <button class="region-chip" data-region="hokkaido">北海道</button>
+        <button class="region-chip" data-region="tohoku">東北</button>
+        <button class="region-chip" data-region="kanto">関東</button>
+        <button class="region-chip" data-region="chubu">中部</button>
+        <button class="region-chip" data-region="kansai">近畿</button>
+        <button class="region-chip" data-region="chugoku">中国</button>
+        <button class="region-chip" data-region="shikoku">四国</button>
+        <button class="region-chip" data-region="kyushu">九州・沖縄</button>
+      </div>
+    </div>
+
+    <div class="map-stage" id="mapStage">
+      <div class="map-grid" id="mapGrid" aria-label="日本地図"></div>
+      <p class="map-hint">タップで都道府県を選択 → 拡大表示 → カテゴリから詳細へ</p>
+    </div>
+  </section>
+
+  <section id="regions" class="region-list">
+    <h3>地方から一覧で探す</h3>
+    <div class="region-cards" id="regionCards"></div>
+  </section>
+
+  <section id="about" class="about">
+    <h3>このサイトについて</h3>
+    <p>SNSのおすすめは流れて消えてしまう。気になったお店や場所を、都道府県別にまとまった「観光のしおり」として残せるサイトです。</p>
+    <p class="affiliate-disclosure">※ 当サイトの一部リンクはアフィリエイトプログラムを利用しています。読者の皆様の予約・購入が、サイト運営の支えとなっています。</p>
+  </section>
+</main>
+
+<!-- 詳細モーダル：都道府県を拡大表示 -->
+<div class="prefecture-modal" id="prefectureModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <article class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header class="modal-header">
+      <div class="modal-title-wrap">
+        <span class="modal-region-badge" id="modalRegion"></span>
+        <h2 id="modalTitle">—</h2>
+        <p id="modalSubtitle" class="modal-subtitle"></p>
+      </div>
+      <button class="modal-close" data-close aria-label="閉じる">×</button>
+    </header>
+
+    <div class="modal-body">
+      <aside class="zoom-stage">
+        <div class="zoom-prefecture" id="zoomPref" aria-hidden="true"></div>
+        <div class="zoom-meta">
+          <p><strong>県庁所在地</strong><span id="modalCapital">—</span></p>
+          <p><strong>SNSタグ</strong><span id="modalTags">—</span></p>
+        </div>
+      </aside>
+
+      <section class="modal-content">
+        <nav class="cat-tabs" id="catTabs">
+          <button class="cat-tab active" data-cat="food">🍜 料理屋</button>
+          <button class="cat-tab" data-cat="spot">🗾 行先</button>
+          <button class="cat-tab" data-cat="shrine">⛩ 神社</button>
+          <button class="cat-tab" data-cat="experience">🎎 体験</button>
+        </nav>
+        <div class="cat-list" id="catList"></div>
+      </section>
+    </div>
+  </article>
+</div>
+
+<footer class="site-footer">
+  <p>© <span id="year"></span> ニッポン マップ ガイド — 旅をあきらめない、すべての SNS 民へ。</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
