@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ | ニッポン マップ ガイド</title>
+<meta name="description" content="ニッポン マップ ガイドへのお問い合わせフォーム。掲載依頼・修正依頼・取材・広告等のご連絡はこちらから。">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .contact-wrap { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+  .contact-wrap h1 { font-family: "Shippori Mincho", serif; font-size: 32px; }
+  .contact-wrap p { color: var(--text-mute); }
+  .contact-form { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
+  .contact-form label { font-size: 13px; color: var(--text); }
+  .contact-form input, .contact-form textarea, .contact-form select {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 14px;
+  }
+  .contact-form textarea { min-height: 160px; resize: vertical; }
+  .contact-form button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 8px;
+  }
+  .contact-form button:hover { background: var(--accent-soft); }
+  .alt-contact { margin-top: 28px; font-size: 13px; color: var(--text-mute); padding: 16px; background: var(--bg-soft); border-radius: 10px; border: 1px dashed var(--line); }
+  .alt-contact code { color: var(--accent-soft); }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">
+    <a href="./" style="text-decoration:none;color:inherit;display:flex;gap:14px;align-items:center;">
+      <span class="brand-mark">日本</span>
+      <div class="brand-text">
+        <h1>ニッポン マップ ガイド</h1>
+        <p>TikTok・Instagram で話題の日本各地まとめ</p>
+      </div>
+    </a>
+  </div>
+  <nav class="header-nav">
+    <a href="./">トップへ</a>
+  </nav>
+</header>
+
+<main class="contact-wrap">
+  <h1>お問い合わせ</h1>
+  <p>掲載依頼・記載内容の修正依頼・取材依頼・広告掲載などのお問い合わせは、下記フォームよりお願いいたします。通常 3 営業日以内にご返信いたします。</p>
+
+  <!--
+    フォーム送信先について:
+    1) 静的サイトのため、無料の Formspree / Getform / Netlify Forms 等を利用するのが簡単です。
+    2) 下の action="https://formspree.io/f/YOUR_FORM_ID" の YOUR_FORM_ID を
+       https://formspree.io/ で取得した ID に置き換えてください。
+    3) 当面はメール送信(mailto)で運用する場合、フォームを使わず「お問い合わせ先」セクションを
+       表示するだけでもアフィリエイト審査は通ります。
+  -->
+  <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <label>お名前
+      <input type="text" name="name" required placeholder="山田 太郎">
+    </label>
+    <label>メールアドレス
+      <input type="email" name="email" required placeholder="example@email.com">
+    </label>
+    <label>お問い合わせ種別
+      <select name="category" required>
+        <option value="">選択してください</option>
+        <option>掲載依頼</option>
+        <option>記載内容の修正依頼</option>
+        <option>取材・メディア掲載依頼</option>
+        <option>広告掲載のご相談</option>
+        <option>その他</option>
+      </select>
+    </label>
+    <label>お問い合わせ内容
+      <textarea name="message" required placeholder="ご用件を具体的にご記入ください"></textarea>
+    </label>
+    <button type="submit">送信する</button>
+  </form>
+
+  <div class="alt-contact">
+    <strong>フォームが使えない場合:</strong> <code>YOUR_EMAIL@gmail.com</code> まで直接メールをお送りください。
+    (運営者のメールアドレスをここに記載してください)
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>© <span id="year"></span> ニッポン マップ ガイド —
+    <a href="./">トップ</a> ·
+    <a href="about.html">運営者情報</a> ·
+    <a href="contact.html">お問い合わせ</a> ·
+    <a href="policy.html">プライバシーポリシー</a>
+  </p>
+</footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
