@@ -23,7 +23,7 @@ window.JAPAN_DATA = (() => {
     // もしも (msmstats) — 楽天市場の物販
     moshimo_id:           "YOUR_MOSHIMO_ID",
     // Amazon アソシエイト tag
-    amazon_tag:           "YOUR_AMAZON_TAG-22"
+    amazon_tag:           "nipponmapguid-22"
   };
 
   /* ---------- アフィリエイト URL 生成ヘルパー ---------- */
