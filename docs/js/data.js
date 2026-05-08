@@ -22,6 +22,8 @@ window.JAPAN_DATA = (() => {
     a8_id_asoview:        "YOUR_A8_ASOVIEW",         // アソビュー！
     // もしも (msmstats) — 楽天市場の物販
     moshimo_id:           "1189282",
+    // もしも 楽天市場プログラム クリックURL (a_id=5542542, p_id=54)
+    moshimo_rakuten_click: "https://af.moshimo.com/af/c/click?a_id=5542542&p_id=54&pc_id=54&pl_id=38582",
     // Amazon アソシエイト tag
     amazon_tag:           "nipponmapguid-22"
   };
@@ -43,7 +45,11 @@ window.JAPAN_DATA = (() => {
     tabelog:    (path)   => vcLink(AFF_IDS.vc_pid_tabelog, `https://tabelog.com/${path}`),
     ikyu:       (path)   => vcLink(AFF_IDS.vc_pid_ikyu,    `https://restaurant.ikyu.com/${path}`),
     asoview:    (path)   => a8Link(AFF_IDS.a8_id_asoview,  `https://www.asoview.com/${path}`),
-    amazon:     (kw)     => `https://www.amazon.co.jp/s?k=${encodeURIComponent(kw)}&tag=${AFF_IDS.amazon_tag}`
+    amazon:     (kw)     => `https://www.amazon.co.jp/s?k=${encodeURIComponent(kw)}&tag=${AFF_IDS.amazon_tag}`,
+    // 楽天市場 (もしも経由・提携済み)
+    rakutenIchiba: (kw)  => kw
+      ? `${AFF_IDS.moshimo_rakuten_click}&url=${encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${encodeURIComponent(kw)}/`)}`
+      : AFF_IDS.moshimo_rakuten_click
   };
 
   const REGION_LABEL = {
