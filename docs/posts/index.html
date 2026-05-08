@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>記事一覧 | ニッポン マップ ガイド</title>
+<meta name="description" content="ニッポン マップ ガイドの記事一覧。東京・京都・北海道・沖縄・大阪など、日本各地の旅行ガイド記事をまとめています。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/article.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">
+    <a href="../" style="text-decoration:none;color:inherit;display:flex;gap:14px;align-items:center;">
+      <span class="brand-mark">日本</span>
+      <div class="brand-text">
+        <h1>ニッポン マップ ガイド</h1>
+        <p>TikTok・Instagram で話題の日本各地まとめ</p>
+      </div>
+    </a>
+  </div>
+  <nav class="header-nav">
+    <a href="../">マップ</a>
+    <a href="./">記事一覧</a>
+    <a href="../about.html">運営者情報</a>
+  </nav>
+</header>
+
+<main class="posts-index">
+  <h1>記事一覧</h1>
+  <p class="lead">日本各地の旅行・グルメ・観光・体験についての特集記事をお届けします。</p>
+
+  <div class="posts-grid">
+    <a class="post-card" href="tokyo-ramen.html">
+      <span class="post-card-tag">東京 / グルメ</span>
+      <h2>東京の絶品ラーメン完全ガイド<br>エリア別・スタイル別おすすめ10選</h2>
+      <p>新宿・渋谷・池袋の行列店から、TikTokでバズった話題のお店まで、効率よく回るためのコツも解説。</p>
+    </a>
+
+    <a class="post-card" href="kyoto-shrines.html">
+      <span class="post-card-tag">京都 / 神社・寺</span>
+      <h2>京都の隠れた神社・穴場5選<br>観光客が知らない静かな祈りの場</h2>
+      <p>伏見稲荷や清水寺だけじゃない京都。観光客の喧騒を離れた、地元民が通う隠れた神社の祈りの場をご紹介。</p>
+    </a>
+
+    <a class="post-card" href="hokkaido-spots.html">
+      <span class="post-card-tag">北海道 / 絶景</span>
+      <h2>北海道の絶景スポット完全ガイド<br>季節別・エリア別おすすめ</h2>
+      <p>美瑛・富良野の花畑、知床の野生、函館の夜景、道東の湿原まで。レンタカー必須エリアも完全網羅。</p>
+    </a>
+
+    <a class="post-card" href="okinawa-experience.html">
+      <span class="post-card-tag">沖縄 / 体験</span>
+      <h2>沖縄の体験アクティビティ厳選10<br>マリン・文化・離島の決定版</h2>
+      <p>シュノーケル・ダイビングなどのマリンスポーツから、琉球ガラス・紅型染めなどの文化体験、離島ツアーまで。</p>
+    </a>
+
+    <a class="post-card" href="osaka-food.html">
+      <span class="post-card-tag">大阪 / グルメ</span>
+      <h2>大阪のグルメ食べ歩きルート完全版<br>エリア別・予算別ガイド</h2>
+      <p>道頓堀・新世界・鶴橋・黒門市場のエリア別おすすめと、必食の名物リスト、予算別プランまで徹底解説。</p>
+    </a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>© <span id="year"></span> ニッポン マップ ガイド —
+    <a href="../">トップ</a> ·
+    <a href="../about.html">運営者情報</a> ·
+    <a href="../contact.html">お問い合わせ</a> ·
+    <a href="../policy.html">プライバシーポリシー</a>
+  </p>
+</footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
