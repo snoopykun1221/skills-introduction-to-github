@@ -23,6 +23,7 @@ window.JAPAN_DATA = (() => {
     a8_id_yumeyado:       "4B3LMS+B72HBM+44YI+HY069", // ゆめやど(平日お得な宿泊)
     a8_id_uqey:           "4B3LMS+B6H1PU+5PE6+5YJRM", // Uqey 待たないレンタカー
     a8_id_tiktokshop:     "4B3MEO+C7DX82+5V86+5YJRM", // TikTok Shop
+    a8_id_airtrip_hotel:  "4B3MEO+9WMO4Y+AD2+3B51V5",  // エアトリ国内ホテル予約
     // もしも (msmstats) — 楽天市場の物販
     moshimo_id:           "1189282",
     // もしも 楽天市場プログラム クリックURL (a_id=5542542, p_id=54)
@@ -51,6 +52,7 @@ window.JAPAN_DATA = (() => {
     yumeyado:            () => `https://px.a8.net/svt/ejp?a8mat=${AFF_IDS.a8_id_yumeyado}`,
     uqey:                () => `https://px.a8.net/svt/ejp?a8mat=${AFF_IDS.a8_id_uqey}`,
     tiktokshop:          () => `https://px.a8.net/svt/ejp?a8mat=${AFF_IDS.a8_id_tiktokshop}`,
+    airtripHotel:        () => `https://px.a8.net/svt/ejp?a8mat=${AFF_IDS.a8_id_airtrip_hotel}`,
     amazon:     (kw)     => `https://www.amazon.co.jp/s?k=${encodeURIComponent(kw)}&tag=${AFF_IDS.amazon_tag}`,
     // 楽天市場 (もしも経由・提携済み)
     rakutenIchiba: (kw)  => kw
