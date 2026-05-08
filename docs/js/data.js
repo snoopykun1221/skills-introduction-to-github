@@ -20,6 +20,8 @@ window.JAPAN_DATA = (() => {
     vc_pid_ikyu:          "YOUR_VC_PID_IKYU",        // 一休
     // A8.net 案件ID
     a8_id_asoview:        "YOUR_A8_ASOVIEW",         // アソビュー！
+    a8_id_yumeyado:       "4B3LMS+B72HBM+44YI+HY069", // ゆめやど(平日お得な宿泊)
+    a8_id_uqey:           "4B3LMS+B6H1PU+5PE6+5YJRM", // Uqey 待たないレンタカー
     // もしも (msmstats) — 楽天市場の物販
     moshimo_id:           "1189282",
     // もしも 楽天市場プログラム クリックURL (a_id=5542542, p_id=54)
@@ -45,6 +47,8 @@ window.JAPAN_DATA = (() => {
     tabelog:    (path)   => vcLink(AFF_IDS.vc_pid_tabelog, `https://tabelog.com/${path}`),
     ikyu:       (path)   => vcLink(AFF_IDS.vc_pid_ikyu,    `https://restaurant.ikyu.com/${path}`),
     asoview:    (path)   => a8Link(AFF_IDS.a8_id_asoview,  `https://www.asoview.com/${path}`),
+    yumeyado:            () => `https://px.a8.net/svt/ejp?a8mat=${AFF_IDS.a8_id_yumeyado}`,
+    uqey:                () => `https://px.a8.net/svt/ejp?a8mat=${AFF_IDS.a8_id_uqey}`,
     amazon:     (kw)     => `https://www.amazon.co.jp/s?k=${encodeURIComponent(kw)}&tag=${AFF_IDS.amazon_tag}`,
     // 楽天市場 (もしも経由・提携済み)
     rakutenIchiba: (kw)  => kw
