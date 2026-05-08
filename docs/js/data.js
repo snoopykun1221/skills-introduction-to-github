@@ -21,7 +21,7 @@ window.JAPAN_DATA = (() => {
     // A8.net 案件ID
     a8_id_asoview:        "YOUR_A8_ASOVIEW",         // アソビュー！
     // もしも (msmstats) — 楽天市場の物販
-    moshimo_id:           "YOUR_MOSHIMO_ID",
+    moshimo_id:           "1189282",
     // Amazon アソシエイト tag
     amazon_tag:           "nipponmapguid-22"
   };
