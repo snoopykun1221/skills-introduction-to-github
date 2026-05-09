@@ -175,3 +175,42 @@
   line-height: 1.7;
   margin: 0;
 }
+
+/* SNS share buttons */
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 28px;
+  padding: 14px 18px;
+  background: var(--bg-soft);
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.share-label {
+  font-size: 12px;
+  color: var(--text-mute);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-weight: 800;
+  text-decoration: none;
+  color: #fff !important;
+  font-size: 16px;
+  transition: 0.2s;
+}
+.share-btn:hover {
+  transform: scale(1.12);
+  text-decoration: none;
+}
+.share-twitter { background: #000; }
+.share-line    { background: #06C755; font-size: 11px; letter-spacing: 0.04em; }
+.share-fb      { background: #1877F2; font-family: Georgia, serif; font-style: italic; }
