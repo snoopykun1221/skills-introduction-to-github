@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/article.css">
 
 <!--
   ============== 収益化スクリプト (公開前に下記を差し替え) ==============
@@ -52,8 +53,8 @@
   <nav class="header-nav">
     <a href="#map">マップ</a>
     <a href="#regions">地方から探す</a>
+    <a href="#posts">特集記事</a>
     <a href="about.html">運営者情報</a>
-    <a href="contact.html">お問い合わせ</a>
   </nav>
 </header>
 
@@ -108,6 +109,52 @@
   <section id="regions" class="region-list">
     <h3>地方から一覧で探す</h3>
     <div class="region-cards" id="regionCards"></div>
+  </section>
+
+  <section id="posts" class="region-list">
+    <h3>特集記事</h3>
+    <p style="color:var(--text-mute); margin-bottom:24px;">エリアの魅力を深掘りした記事をお届けします。</p>
+    <div class="posts-grid">
+      <a class="post-card" href="posts/tokyo-ramen.html">
+        <span class="post-card-tag">東京 / グルメ</span>
+        <h2>東京の絶品ラーメン完全ガイド</h2>
+        <p>エリア別・スタイル別おすすめ10選 — 新宿・渋谷・池袋の行列店から穴場まで。</p>
+      </a>
+      <a class="post-card" href="posts/kyoto-shrines.html">
+        <span class="post-card-tag">京都 / 神社</span>
+        <h2>京都の隠れた神社・穴場5選</h2>
+        <p>観光客が知らない静かな祈りの場。地元民が通う本物の京都を体感。</p>
+      </a>
+      <a class="post-card" href="posts/hokkaido-spots.html">
+        <span class="post-card-tag">北海道 / 絶景</span>
+        <h2>北海道の絶景スポット完全ガイド</h2>
+        <p>季節別・エリア別。美瑛・知床・函館・道東の本気の絶景を網羅。</p>
+      </a>
+      <a class="post-card" href="posts/okinawa-experience.html">
+        <span class="post-card-tag">沖縄 / 体験</span>
+        <h2>沖縄の体験アクティビティ厳選10</h2>
+        <p>マリン・文化・離島の決定版。沖縄でしかできない10の体験を厳選。</p>
+      </a>
+      <a class="post-card" href="posts/osaka-food.html">
+        <span class="post-card-tag">大阪 / グルメ</span>
+        <h2>大阪のグルメ食べ歩きルート完全版</h2>
+        <p>道頓堀・新世界・鶴橋。エリア別・予算別の食い倒れガイド。</p>
+      </a>
+    </div>
+    <p style="text-align:center; margin-top:30px;"><a href="posts/" style="color:var(--accent-soft);">記事一覧をすべて見る →</a></p>
+  </section>
+
+  <section class="tiktok-promo">
+    <div class="tiktok-promo-inner">
+      <div class="tiktok-promo-text">
+        <span class="tiktok-promo-tag">SNS発・話題のショップ</span>
+        <h3>TikTok Shop で「見つけて買う」</h3>
+        <p>TikTokで話題の商品を、ショート動画で発見してそのまま購入。ご当地グルメ・限定グッズ・話題のコスメまで続々登場中。</p>
+      </div>
+      <a class="tiktok-promo-btn" href="https://px.a8.net/svt/ejp?a8mat=4B3MEO+C7DX82+5V86+5YJRM" target="_blank" rel="sponsored noopener">
+        TikTok Shop を見る →
+      </a>
+    </div>
   </section>
 
   <section id="about" class="about">

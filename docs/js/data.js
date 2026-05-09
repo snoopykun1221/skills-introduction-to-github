@@ -20,10 +20,16 @@ window.JAPAN_DATA = (() => {
     vc_pid_ikyu:          "YOUR_VC_PID_IKYU",        // 一休
     // A8.net 案件ID
     a8_id_asoview:        "YOUR_A8_ASOVIEW",         // アソビュー！
+    a8_id_yumeyado:       "4B3LMS+B72HBM+44YI+HY069", // ゆめやど(平日お得な宿泊)
+    a8_id_uqey:           "4B3LMS+B6H1PU+5PE6+5YJRM", // Uqey 待たないレンタカー
+    a8_id_tiktokshop:     "4B3MEO+C7DX82+5V86+5YJRM", // TikTok Shop
+    a8_id_airtrip_hotel:  "4B3MEO+9WMO4Y+AD2+3B51V5",  // エアトリ国内ホテル予約
     // もしも (msmstats) — 楽天市場の物販
-    moshimo_id:           "YOUR_MOSHIMO_ID",
+    moshimo_id:           "1189282",
+    // もしも 楽天市場プログラム クリックURL (a_id=5542542, p_id=54)
+    moshimo_rakuten_click: "https://af.moshimo.com/af/c/click?a_id=5542542&p_id=54&pc_id=54&pl_id=38582",
     // Amazon アソシエイト tag
-    amazon_tag:           "YOUR_AMAZON_TAG-22"
+    amazon_tag:           "nipponmapguid-22"
   };
 
   /* ---------- アフィリエイト URL 生成ヘルパー ---------- */
@@ -43,7 +49,15 @@ window.JAPAN_DATA = (() => {
     tabelog:    (path)   => vcLink(AFF_IDS.vc_pid_tabelog, `https://tabelog.com/${path}`),
     ikyu:       (path)   => vcLink(AFF_IDS.vc_pid_ikyu,    `https://restaurant.ikyu.com/${path}`),
     asoview:    (path)   => a8Link(AFF_IDS.a8_id_asoview,  `https://www.asoview.com/${path}`),
-    amazon:     (kw)     => `https://www.amazon.co.jp/s?k=${encodeURIComponent(kw)}&tag=${AFF_IDS.amazon_tag}`
+    yumeyado:            () => `https://px.a8.net/svt/ejp?a8mat=${AFF_IDS.a8_id_yumeyado}`,
+    uqey:                () => `https://px.a8.net/svt/ejp?a8mat=${AFF_IDS.a8_id_uqey}`,
+    tiktokshop:          () => `https://px.a8.net/svt/ejp?a8mat=${AFF_IDS.a8_id_tiktokshop}`,
+    airtripHotel:        () => `https://px.a8.net/svt/ejp?a8mat=${AFF_IDS.a8_id_airtrip_hotel}`,
+    amazon:     (kw)     => `https://www.amazon.co.jp/s?k=${encodeURIComponent(kw)}&tag=${AFF_IDS.amazon_tag}`,
+    // 楽天市場 (もしも経由・提携済み)
+    rakutenIchiba: (kw)  => kw
+      ? `${AFF_IDS.moshimo_rakuten_click}&url=${encodeURIComponent(`https://search.rakuten.co.jp/search/mall/${encodeURIComponent(kw)}/`)}`
+      : AFF_IDS.moshimo_rakuten_click
   };
 
   const REGION_LABEL = {
