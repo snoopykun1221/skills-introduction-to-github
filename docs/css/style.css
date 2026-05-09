@@ -623,3 +623,35 @@ a:hover { text-decoration: underline; }
   color: #fff !important;
   transform: scale(1.04);
 }
+
+/* Modal article link button */
+.modal-article-link {
+  margin-top: 10px;
+}
+.modal-article-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent), #931627);
+  color: #fff !important;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.modal-article-btn:hover {
+  transform: scale(1.04);
+  text-decoration: none;
+}
+
+/* Empty category placeholder */
+.cat-empty {
+  text-align: center;
+  color: var(--text-mute);
+  padding: 40px 20px;
+  font-size: 14px;
+  line-height: 1.8;
+  background: var(--bg-soft);
+  border-radius: 12px;
+  border: 1px dashed var(--line);
+}
