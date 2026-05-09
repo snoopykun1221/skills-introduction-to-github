@@ -28,10 +28,16 @@ window.JAPAN_DATA = (() => {
   };
 
   /* ============== URL生成ヘルパー ============== */
+  // ID未取得 (YOUR_xxx プレースホルダ) の時は直接リンクにフォールバック
+  const isPlaceholder = (s) => !s || s.startsWith("YOUR_");
   const vcLink = (pid, deepLink) =>
-    `https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=${AFF_IDS.valuecommerce_sid}&pid=${pid}&vc_url=${encodeURIComponent(deepLink)}`;
+    (isPlaceholder(AFF_IDS.valuecommerce_sid) || isPlaceholder(pid))
+      ? deepLink
+      : `https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=${AFF_IDS.valuecommerce_sid}&pid=${pid}&vc_url=${encodeURIComponent(deepLink)}`;
   const a8Link = (a8Id, deepLink) =>
-    `https://px.a8.net/svt/ejp?a8mat=${a8Id}&a8ejpredirect=${encodeURIComponent(deepLink)}`;
+    isPlaceholder(a8Id)
+      ? deepLink
+      : `https://px.a8.net/svt/ejp?a8mat=${a8Id}&a8ejpredirect=${encodeURIComponent(deepLink)}`;
 
   const link = {
     jalan:      (path)   => vcLink(AFF_IDS.vc_pid_jalan,   `https://www.jalan.net/${path}`),
