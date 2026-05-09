@@ -152,6 +152,19 @@
     modalCap.textContent = p.capital;
     modalTags.textContent = p.tags;
 
+    // Article link (only for prefectures with a dedicated post)
+    const articleArea = byId("modalArticleLink");
+    if (articleArea) {
+      if (p.articleHref) {
+        articleArea.innerHTML =
+          `<a href="${p.articleHref}" class="modal-article-btn">📖 ${escapeHtml(p.name)}の特集記事を読む →</a>`;
+        articleArea.style.display = "";
+      } else {
+        articleArea.innerHTML = "";
+        articleArea.style.display = "none";
+      }
+    }
+
     // Zoomed prefecture badge with region color
     zoomPref.style.background =
       `linear-gradient(135deg, ${REGION_COLOR[p.region]} 0%, rgba(0,0,0,0.55) 100%)`;
