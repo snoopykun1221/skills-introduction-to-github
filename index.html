@@ -36,6 +36,23 @@
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="container hero-inner">
+
+      <svg class="hero-illust" viewBox="0 0 220 90" aria-hidden="true">
+        <g stroke="#3a6f4c" stroke-width="1.4" fill="none" opacity="0.7">
+          <path d="M 30 70 Q 60 55 95 70" stroke-linecap="round"/>
+          <path d="M 125 70 Q 160 55 195 70" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(95 18)">
+          <circle cx="15" cy="6" r="5" fill="none" stroke="#2d5a3d" stroke-width="2"/>
+          <line x1="15" y1="11" x2="15" y2="55" stroke="#2d5a3d" stroke-width="2" stroke-linecap="round"/>
+          <path d="M 13 53 L 15 60 L 17 53 Z" fill="#2d5a3d"/>
+        </g>
+        <g opacity="0.55" stroke="#b54e3a" stroke-width="1.3" fill="none" stroke-linecap="round">
+          <path d="M 70 35 C 75 28, 67 22, 72 14"/>
+          <path d="M 150 38 C 155 31, 147 25, 152 17"/>
+        </g>
+      </svg>
+
       <p class="hero-eyebrow">ご自宅へお伺いします</p>
       <h2 id="hero-title" class="hero-title">
         お身体のつらさを、<br>
@@ -59,9 +76,9 @@
         <a href="#access" class="btn btn-secondary">アクセス・所在地を見る</a>
       </div>
       <ul class="hero-points">
-        <li>女性鍼灸師が一人で<br>丁寧に施術いたします</li>
+        <li>院長が一人で<br>丁寧に施術いたします</li>
         <li>名古屋市・弥富市など<br>幅広い地域に伺います</li>
-        <li>鍼・お灸・マッサージの<br>国家資格保有</li>
+        <li>鍼・お灸・マッサージで<br>お身体をやさしく整えます</li>
       </ul>
     </div>
   </section>
@@ -129,21 +146,40 @@
       <p class="section-eyebrow">施術内容</p>
       <h2 id="services-title" class="section-title">鍼・お灸・マッサージ</h2>
       <p class="section-lead">
-        国家資格を持つ鍼灸師が、お一人おひとりのお身体に合わせて<br>
-        丁寧に施術いたします。
+        院長がお一人おひとりのお身体に合わせて、<br>
+        やさしく丁寧に施術いたします。
       </p>
 
       <div class="services-grid">
         <article class="service">
+          <div class="service-icon-wrap">
+            <svg class="service-icon" viewBox="0 0 100 110" aria-hidden="true">
+              <circle cx="50" cy="18" r="9" fill="none" stroke="currentColor" stroke-width="2.5"/>
+              <line x1="50" y1="27" x2="50" y2="82" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 47 80 L 50 90 L 53 80 Z" fill="currentColor"/>
+              <ellipse cx="50" cy="95" rx="14" ry="3" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.45"/>
+              <ellipse cx="50" cy="98" rx="22" ry="4" fill="none" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+            </svg>
+          </div>
           <h3 class="service-title">鍼（はり）施術</h3>
           <p class="service-text">
-            髪の毛ほどの細い鍼を、痛みの少ない優しい刺激でツボに用います。
+            髪の毛ほどの細い鍼を、痛みの少ないやさしい刺激でツボに用います。
             肩こり・腰痛・神経痛・しびれなど、慢性的な不調にお応えします。
             使用する鍼はすべて使い捨ての衛生的なものです。
           </p>
         </article>
 
         <article class="service">
+          <div class="service-icon-wrap">
+            <svg class="service-icon" viewBox="0 0 100 110" aria-hidden="true">
+              <path d="M 42 42 C 50 32, 36 22, 46 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+              <path d="M 58 42 C 66 32, 52 22, 62 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+              <path d="M 32 78 L 68 78 Q 64 56 50 44 Q 36 56 32 78 Z" fill="currentColor"/>
+              <ellipse cx="50" cy="46" rx="4" ry="3" fill="#ff8a4f"/>
+              <line x1="20" y1="84" x2="80" y2="84" stroke="currentColor" stroke-width="1.5" opacity="0.45"/>
+              <line x1="14" y1="92" x2="86" y2="92" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+            </svg>
+          </div>
           <h3 class="service-title">お灸（きゅう）</h3>
           <p class="service-text">
             やわらかな温かさで、冷え・むくみ・倦怠感をやわらげます。
@@ -153,6 +189,17 @@
         </article>
 
         <article class="service">
+          <div class="service-icon-wrap">
+            <svg class="service-icon" viewBox="0 0 100 110" aria-hidden="true">
+              <circle cx="36" cy="42" r="9" fill="currentColor"/>
+              <circle cx="64" cy="42" r="9" fill="currentColor"/>
+              <circle cx="36" cy="42" r="14" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.4"/>
+              <circle cx="64" cy="42" r="14" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.4"/>
+              <path d="M 16 72 Q 50 60 84 72" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 12 84 Q 50 72 88 84" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+              <path d="M 16 96 Q 50 84 84 96" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+            </svg>
+          </div>
           <h3 class="service-title">マッサージ・指圧</h3>
           <p class="service-text">
             こり固まった筋肉をやさしくほぐし、お身体の動きをらくにします。
@@ -179,26 +226,32 @@
       <h2 id="about-title" class="section-title">やよい鍼灸院のご案内</h2>
 
       <div class="about-content">
+        <p class="about-greeting">― ご挨拶 ―</p>
         <p class="about-message">
-          皆さま、はじめまして。<br>
-          愛知県弥富市の「やよい鍼灸院」では、<br>
-          女性鍼灸師が一人で、心を込めて施術にあたっております。
+          はじめまして。<br>
+          やよい鍼灸院 院長の <strong>石井 美恵子</strong>（いしい みえこ）と申します。
         </p>
         <p class="about-message">
+          愛知県弥富市にて、ひとりで心を込めて施術にあたっております。<br>
           通院が難しい方のもとへお伺いする「訪問鍼灸」を中心に、<br>
-          おひとりおひとりのお身体とゆっくり向き合う時間を大切にしています。
+          お一人おひとりのお身体とゆっくり向き合う時間を大切にしています。
         </p>
         <p class="about-message">
           ご高齢の方やご家族のご負担にならぬよう、<br>
           やさしく、わかりやすい施術を心がけております。<br>
           どうぞお気軽にお声がけください。
         </p>
+        <p class="about-sign">院長　石井 美恵子</p>
       </div>
 
       <dl class="info-list">
         <div class="info-row">
           <dt>院名</dt>
           <dd>やよい鍼灸院</dd>
+        </div>
+        <div class="info-row">
+          <dt>院長</dt>
+          <dd>石井 美恵子（いしい みえこ）</dd>
         </div>
         <div class="info-row">
           <dt>所在地</dt>
@@ -228,10 +281,6 @@
             自費診療／完全予約制<br>
             <small>※ 訪問・ご来院ともに<strong>お電話でのご予約のみ</strong>受け付けております</small>
           </dd>
-        </div>
-        <div class="info-row">
-          <dt>資格</dt>
-          <dd>はり師・きゅう師（国家資格）</dd>
         </div>
       </dl>
     </div>
