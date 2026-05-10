@@ -538,7 +538,9 @@ p { margin: 0 0 1em; }
   letter-spacing: 0.05em;
 }
 
-.footer-address { margin: 0 0 1.5rem; opacity: 0.9; }
+.footer-address { margin: 0 0 1.5rem; opacity: 0.95; line-height: 1.8; }
+.footer-address a { color: #fff; text-decoration: underline; }
+.footer-address a:hover { color: #f4d6c4; }
 
 .footer-copy {
   margin: 0;
