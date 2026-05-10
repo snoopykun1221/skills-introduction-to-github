@@ -174,7 +174,20 @@ p { margin: 0 0 1em; }
 .hero-text {
   font-size: 1.15rem;
   color: var(--color-text);
-  margin: 0 0 2rem;
+  margin: 0 0 1.25rem;
+}
+
+.hero-notice {
+  display: inline-block;
+  background: #fff;
+  color: var(--color-accent-dark);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 0.6rem 1.1rem;
+  margin: 0 auto 2rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 720px;
 }
 
 .hero-actions {
@@ -488,6 +501,19 @@ p { margin: 0 0 1em; }
   color: var(--color-text-soft);
   margin: 1.5rem 0 0;
   line-height: 1.7;
+}
+
+.notice-box {
+  background: #fff7f3;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem auto 0;
+  max-width: 600px;
+  color: var(--color-accent-dark);
+  font-size: 1rem;
+  line-height: 1.8;
+  text-align: center;
 }
 
 .access-info {
