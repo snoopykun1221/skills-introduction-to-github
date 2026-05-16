@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Instagram 片思いチェッカー</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 16px;
+    background: #fafafa;
+    color: #222;
+  }
+  h1 { font-size: 1.4em; margin-bottom: 4px; }
+  .desc { color: #666; font-size: 0.9em; margin-bottom: 24px; }
+  .drop {
+    border: 2px dashed #c7c7c7;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 12px;
+    background: #fff;
+    transition: 0.15s;
+  }
+  .drop.ready { border-color: #4caf50; background: #f1f8f3; }
+  .drop label { font-weight: 600; display: block; margin-bottom: 8px; }
+  .status { font-size: 0.85em; color: #666; margin-top: 6px; }
+  button {
+    background: #0095f6;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+  }
+  button:disabled { background: #b2dffc; cursor: not-allowed; }
+  .summary {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 20px;
+    display: none;
+  }
+  .summary.show { display: block; }
+  .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .stat {
+    flex: 1;
+    min-width: 100px;
+    background: #f4f4f4;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+  }
+  .stat .n { font-size: 1.5em; font-weight: 700; color: #0095f6; }
+  .stat .l { font-size: 0.8em; color: #666; }
+  .list {
+    max-height: 50vh;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 8px;
+  }
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .item:last-child { border-bottom: 0; }
+  .item a { color: #0095f6; text-decoration: none; font-weight: 500; }
+  .copy {
+    background: #efefef;
+    color: #222;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.85em;
+    width: auto;
+    margin-top: 12px;
+  }
+</style>
+</head>
+<body>
+  <h1>Instagram 片思いチェッカー</h1>
+  <p class="desc">あなたがフォローしているのに、フォローバックされていないアカウントを表示します。データはブラウザ内で処理され、外部送信されません。</p>
+
+  <div class="drop" id="dropFollowers">
+    <label>1. followers_1.json を選択</label>
+    <input type="file" id="followersFile" accept=".json">
+    <div class="status" id="followersStatus">未選択</div>
+  </div>
+
+  <div class="drop" id="dropFollowing">
+    <label>2. following.json を選択</label>
+    <input type="file" id="followingFile" accept=".json">
+    <div class="status" id="followingStatus">未選択</div>
+  </div>
+
+  <button id="runBtn" disabled>片思いを表示</button>
+
+  <div class="summary" id="summary">
+    <div class="stats">
+      <div class="stat"><div class="n" id="cntFollowing">0</div><div class="l">フォロー中</div></div>
+      <div class="stat"><div class="n" id="cntFollowers">0</div><div class="l">フォロワー</div></div>
+      <div class="stat"><div class="n" id="cntNonBack">0</div><div class="l">片思い</div></div>
+    </div>
+    <div class="list" id="list"></div>
+    <button class="copy" id="copyBtn">ユーザー名をコピー</button>
+  </div>
+
+<script>
+let followersData = null;
+let followingData = null;
+
+const followersInput = document.getElementById('followersFile');
+const followingInput = document.getElementById('followingFile');
+const runBtn = document.getElementById('runBtn');
+
+function readJSON(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = e => {
+      try { resolve(JSON.parse(e.target.result)); }
+      catch (err) { reject(err); }
+    };
+    r.onerror = reject;
+    r.readAsText(file);
+  });
+}
+
+function extractUsernames(data) {
+  const names = new Set();
+  let arr = Array.isArray(data) ? data : (data.relationships_following || data.relationships_followers || []);
+  for (const entry of arr) {
+    if (entry.string_list_data && entry.string_list_data.length) {
+      const sd = entry.string_list_data[0];
+      let name = sd.value || entry.title || '';
+      if (!name && sd.href) {
+        const m = sd.href.match(/instagram\.com\/(?:_u\/)?([^\/\?]+)/);
+        if (m) name = m[1];
+      }
+      if (name) names.add(name.toLowerCase());
+    } else if (entry.title) {
+      names.add(entry.title.toLowerCase());
+    }
+  }
+  return names;
+}
+
+async function handleFile(input, statusEl, dropEl, which) {
+  const f = input.files[0];
+  if (!f) return;
+  statusEl.textContent = '読み込み中...';
+  try {
+    const data = await readJSON(f);
+    if (which === 'followers') followersData = data;
+    else followingData = data;
+    const count = extractUsernames(data).size;
+    statusEl.textContent = `${f.name} — ${count}件`;
+    dropEl.classList.add('ready');
+  } catch (e) {
+    statusEl.textContent = 'JSON読み込みエラー';
+    dropEl.classList.remove('ready');
+  }
+  runBtn.disabled = !(followersData && followingData);
+}
+
+followersInput.addEventListener('change', () =>
+  handleFile(followersInput, document.getElementById('followersStatus'), document.getElementById('dropFollowers'), 'followers'));
+followingInput.addEventListener('change', () =>
+  handleFile(followingInput, document.getElementById('followingStatus'), document.getElementById('dropFollowing'), 'following'));
+
+runBtn.addEventListener('click', () => {
+  const followers = extractUsernames(followersData);
+  const following = extractUsernames(followingData);
+  const nonBack = [...following].filter(u => !followers.has(u)).sort();
+
+  document.getElementById('cntFollowing').textContent = following.size;
+  document.getElementById('cntFollowers').textContent = followers.size;
+  document.getElementById('cntNonBack').textContent = nonBack.length;
+
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  for (const u of nonBack) {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `<span>${u}</span><a href="https://www.instagram.com/${u}" target="_blank" rel="noopener">プロフィール →</a>`;
+    list.appendChild(div);
+  }
+  document.getElementById('summary').classList.add('show');
+
+  document.getElementById('copyBtn').onclick = () => {
+    navigator.clipboard.writeText(nonBack.join('\n'));
+    document.getElementById('copyBtn').textContent = 'コピー済み ✓';
+    setTimeout(() => document.getElementById('copyBtn').textContent = 'ユーザー名をコピー', 1500);
+  };
+});
+</script>
+</body>
+</html>
