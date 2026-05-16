@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram フォロバチェッカー</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  min-height: 100vh;
+  padding: 20px;
+  color: #262626;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+}
+
+header {
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  color: white;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+header h1 { font-size: 26px; margin-bottom: 8px; }
+header p { opacity: 0.9; font-size: 14px; }
+
+.main { padding: 24px; }
+
+.instructions {
+  background: #fafafa;
+  border: 1px solid #efefef;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.instructions summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.instructions summary::before {
+  content: "▶";
+  font-size: 10px;
+  transition: transform 0.15s;
+}
+
+.instructions[open] summary::before { transform: rotate(90deg); }
+
+.instructions ol { margin: 12px 0 0 24px; }
+.instructions li { margin-bottom: 4px; }
+.instructions code {
+  background: #efefef;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.privacy-note {
+  background: #e8f5e9;
+  border-left: 4px solid #4caf50;
+  padding: 10px 14px;
+  margin-top: 14px;
+  font-size: 13px;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+.dropzone {
+  border: 2px dashed #c7c7c7;
+  border-radius: 8px;
+  padding: 36px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fafafa;
+  margin-bottom: 16px;
+}
+
+.dropzone:hover, .dropzone.dragover {
+  border-color: #833ab4;
+  background: #f9f0ff;
+}
+
+.dropzone p { color: #8e8e8e; font-size: 14px; margin: 4px 0; }
+.dropzone .icon { font-size: 36px; margin-bottom: 8px; }
+.dropzone input[type="file"] { display: none; }
+
+.status {
+  margin: 12px 0;
+  font-size: 13px;
+  color: #8e8e8e;
+  min-height: 18px;
+}
+.status.error { color: #ed4956; }
+.status.success { color: #00a400; }
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 12px 16px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  color: #8e8e8e;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.tab.active { color: #262626; border-bottom-color: #262626; }
+
+.tab .count {
+  background: #efefef;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.tab.active .count { background: #262626; color: white; }
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.search {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 14px;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+}
+.search:focus { outline: none; border-color: #833ab4; }
+
+.btn {
+  padding: 10px 16px;
+  background: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.btn:hover { background: #1877f2; }
+.btn.secondary { background: #efefef; color: #262626; }
+.btn.secondary:hover { background: #dbdbdb; }
+
+.user-list { display: grid; gap: 8px; }
+
+.user-card {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #efefef;
+  border-radius: 8px;
+  transition: all 0.15s;
+}
+.user-card:hover { border-color: #c7c7c7; background: #fafafa; }
+
+.user-info { flex: 1; min-width: 0; }
+.username { font-weight: 600; font-size: 14px; }
+.username a { color: #262626; text-decoration: none; }
+.username a:hover { color: #0095f6; text-decoration: underline; }
+.user-meta { font-size: 12px; color: #8e8e8e; margin-top: 2px; }
+
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #8e8e8e;
+  font-size: 14px;
+}
+
+.hidden { display: none !important; }
+
+footer {
+  text-align: center;
+  padding: 16px;
+  font-size: 12px;
+  color: #8e8e8e;
+  border-top: 1px solid #efefef;
+}
+
+@media (max-width: 600px) {
+  body { padding: 10px; }
+  header { padding: 24px 16px; }
+  header h1 { font-size: 22px; }
+  .main { padding: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Instagram フォロバチェッカー</h1>
+    <p>フォローしてるのにフォローバックされていない人を一覧表示</p>
+  </header>
+  <div class="main">
+    <details class="instructions" open>
+      <summary>使い方（Instagramデータの取得方法）</summary>
+      <ol>
+        <li>Instagramアプリで <strong>設定 → アカウントセンター → あなたの情報とアクセス許可 → 情報をダウンロード</strong> を開く</li>
+        <li>ダウンロード形式は <strong>JSON</strong>、情報の種類は「<strong>フォロワーとフォロー中</strong>」を選択して申請</li>
+        <li>準備完了メールが届いたらZIPをダウンロードして解凍</li>
+        <li><code>connections/followers_and_following/</code> 内の <code>followers_1.json</code> と <code>following.json</code>（フォロワー多い人は <code>followers_2.json</code> 等も）を下のエリアにドロップ</li>
+      </ol>
+      <div class="privacy-note">
+        🔒 <strong>プライバシー:</strong> 処理は100%ブラウザ内で完結します。ファイルやデータがサーバーへ送信されることはありません。オフラインでも動作します。
+      </div>
+    </details>
+
+    <div class="dropzone" id="dropzone">
+      <div class="icon">📂</div>
+      <p><strong>JSONファイルをドラッグ＆ドロップ</strong></p>
+      <p>または クリックしてファイルを選択（複数選択可）</p>
+      <input type="file" id="fileInput" multiple accept=".json">
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <div id="results" class="hidden">
+      <div class="tabs">
+        <button class="tab active" data-tab="not-followed-back">
+          フォロバなし<span class="count" id="count-not-followed-back">0</span>
+        </button>
+        <button class="tab" data-tab="fans">
+          片想いされてる<span class="count" id="count-fans">0</span>
+        </button>
+        <button class="tab" data-tab="mutual">
+          相互フォロー<span class="count" id="count-mutual">0</span>
+        </button>
+      </div>
+
+      <div class="toolbar">
+        <input type="text" class="search" id="search" placeholder="ユーザー名で検索...">
+        <button class="btn" id="exportBtn">CSVエクスポート</button>
+        <button class="btn secondary" id="resetBtn">リセット</button>
+      </div>
+
+      <div class="user-list" id="userList"></div>
+    </div>
+  </div>
+  <footer>すべての処理はブラウザ内で完結します</footer>
+</div>
+
+<script>
+const state = {
+  followers: new Map(),
+  following: new Map(),
+  activeTab: 'not-followed-back',
+  searchTerm: '',
+};
+
+const $ = (id) => document.getElementById(id);
+const dropzone = $('dropzone');
+const fileInput = $('fileInput');
+const status = $('status');
+const results = $('results');
+const userList = $('userList');
+const search = $('search');
+
+dropzone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+['dragover', 'dragenter'].forEach(ev => {
+  dropzone.addEventListener(ev, (e) => {
+    e.preventDefault();
+    dropzone.classList.add('dragover');
+  });
+});
+['dragleave', 'dragend'].forEach(ev => {
+  dropzone.addEventListener(ev, () => dropzone.classList.remove('dragover'));
+});
+dropzone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  handleFiles(e.dataTransfer.files);
+});
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    state.activeTab = tab.dataset.tab;
+    render();
+  });
+});
+
+search.addEventListener('input', (e) => {
+  state.searchTerm = e.target.value.toLowerCase();
+  render();
+});
+
+$('exportBtn').addEventListener('click', exportCSV);
+$('resetBtn').addEventListener('click', () => {
+  state.followers.clear();
+  state.following.clear();
+  state.searchTerm = '';
+  search.value = '';
+  results.classList.add('hidden');
+  status.textContent = '';
+  status.className = 'status';
+});
+
+async function handleFiles(fileList) {
+  const files = Array.from(fileList);
+  if (files.length === 0) return;
+
+  const errors = [];
+  let beforeFollowers = state.followers.size;
+  let beforeFollowing = state.following.size;
+
+  for (const file of files) {
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      const result = parseInstagramJSON(data, file.name);
+      if (result.type === 'followers') {
+        result.users.forEach(u => state.followers.set(u.username.toLowerCase(), u));
+      } else if (result.type === 'following') {
+        result.users.forEach(u => state.following.set(u.username.toLowerCase(), u));
+      } else {
+        errors.push(`${file.name}: 種類を判別できませんでした（ファイル名に followers/following を含むファイルを選択してください）`);
+      }
+    } catch (err) {
+      errors.push(`${file.name}: ${err.message}`);
+    }
+  }
+
+  const msgs = [];
+  if (state.followers.size > 0) msgs.push(`フォロワー ${state.followers.size}件`);
+  if (state.following.size > 0) msgs.push(`フォロー中 ${state.following.size}件`);
+
+  if (errors.length > 0) {
+    status.className = 'status error';
+    status.textContent = '⚠ ' + errors.join(' / ');
+  } else if (msgs.length > 0) {
+    status.className = 'status success';
+    status.textContent = `✓ 読み込み完了: ${msgs.join(' / ')}`;
+  }
+
+  if (state.followers.size > 0 || state.following.size > 0) {
+    results.classList.remove('hidden');
+    render();
+  }
+}
+
+function parseInstagramJSON(data, filename) {
+  const fnLower = filename.toLowerCase();
+  let type = null;
+  if (fnLower.includes('follower')) type = 'followers';
+  else if (fnLower.includes('following')) type = 'following';
+
+  let entries = null;
+  if (Array.isArray(data)) {
+    entries = data;
+  } else if (data.relationships_followers) {
+    entries = data.relationships_followers;
+    type = type || 'followers';
+  } else if (data.relationships_following) {
+    entries = data.relationships_following;
+    type = type || 'following';
+  } else {
+    for (const key of Object.keys(data)) {
+      if (Array.isArray(data[key])) {
+        entries = data[key];
+        if (key.includes('follower') && !type) type = 'followers';
+        else if (key.includes('following') && !type) type = 'following';
+        break;
+      }
+    }
+  }
+
+  if (!entries || !type) return { type: 'unknown', users: [] };
+
+  const users = [];
+  for (const entry of entries) {
+    const sld = entry.string_list_data || [];
+    for (const item of sld) {
+      if (item.value) {
+        users.push({
+          username: item.value,
+          url: item.href || `https://www.instagram.com/${item.value}`,
+          timestamp: item.timestamp || 0,
+        });
+      }
+    }
+  }
+  return { type, users };
+}
+
+function computeLists() {
+  const notFollowedBack = [];
+  const fans = [];
+  const mutual = [];
+
+  for (const [key, info] of state.following) {
+    if (state.followers.has(key)) mutual.push(info);
+    else notFollowedBack.push(info);
+  }
+  for (const [key, info] of state.followers) {
+    if (!state.following.has(key)) fans.push(info);
+  }
+  return { 'not-followed-back': notFollowedBack, fans, mutual };
+}
+
+function formatDate(ts) {
+  if (!ts) return '';
+  const d = new Date(ts * 1000);
+  if (isNaN(d.getTime())) return '';
+  return d.toLocaleDateString('ja-JP');
+}
+
+function render() {
+  const lists = computeLists();
+  $('count-not-followed-back').textContent = lists['not-followed-back'].length;
+  $('count-fans').textContent = lists.fans.length;
+  $('count-mutual').textContent = lists.mutual.length;
+
+  let users = lists[state.activeTab] || [];
+  if (state.searchTerm) {
+    users = users.filter(u => u.username.toLowerCase().includes(state.searchTerm));
+  }
+  users.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+  if (users.length === 0) {
+    const emptyMsg = state.searchTerm
+      ? '検索条件に一致するユーザーはいません'
+      : (state.activeTab === 'not-followed-back' ? '🎉 全員からフォローバックされています！' : '該当するユーザーはいません');
+    userList.innerHTML = `<div class="empty">${emptyMsg}</div>`;
+    return;
+  }
+
+  const dateLabel = state.activeTab === 'fans' ? 'フォローされた日' : 'フォローした日';
+  userList.innerHTML = users.map(u => `
+    <div class="user-card">
+      <div class="user-info">
+        <div class="username">
+          <a href="${u.url}" target="_blank" rel="noopener noreferrer">@${escapeHTML(u.username)}</a>
+        </div>
+        ${u.timestamp ? `<div class="user-meta">${dateLabel}: ${formatDate(u.timestamp)}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[c]);
+}
+
+function exportCSV() {
+  const lists = computeLists();
+  const users = lists[state.activeTab] || [];
+  if (users.length === 0) {
+    alert('エクスポートできるデータがありません');
+    return;
+  }
+  const rows = [['username', 'url', 'date']];
+  for (const u of users) rows.push([u.username, u.url, formatDate(u.timestamp)]);
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `instagram-${state.activeTab}-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
