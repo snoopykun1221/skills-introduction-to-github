@@ -35,3 +35,12 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# fx_auto_follow
+.env
+.venv/
+fx_auto_follow/.env
+fx_auto_follow/storage_state.json
+fx_auto_follow/followed.json
+fx_auto_follow/log.txt
+
